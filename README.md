@@ -1,8 +1,8 @@
 # Api de Zoológico
 
-A implementação a seguir é uma API básica de um jogo de simulação de zoológico. O usuário pode criar um recinto, criar animais, editar seus recintos, alimentar os animais e simular a receita de cada recinto.
+A implementação a seguir é uma API básica de um jogo de simulação de zoológico. O usuário pode criar um recinto, criar animais, editar seus recintos, alimentar os animais e simular a receita de cada recinto. O código fonte pode ser encontrado [aqui](.src/index.js).
 
-A API foi desenvolvida utilizando JavaScript, com as bibliotecas Node.js e Express, além do Jest para os testes de integração.
+A API foi desenvolvida utilizando JavaScript, com as bibliotecas Node.js e Express, além do Jest e Supertest para os testes de integração.
 
 Para rodar a API, após instalar as dependências, basta utilizar:
 ```
@@ -16,12 +16,12 @@ As duas classes principais são `"Animal"` e `"Recinto"`. Elas servem como base 
 Ao ser instanciada, a classe "Recinto" cria um novo objeto recinto, que tem as propriedades `'nome'`, `'especieAceita'`, `'tratamento'`, `'animais'` e `'renda'`. Além disso, há o método `removerAnimal()`, que remove um animal específico do array 'animais' pelo nome; e o método `adicionarAnimal()`, que já recebe um objeto animal da espécie aceita, e adiciona ao array citado.
 
 ### Animal
-Ao ser instanciada, a classe "Animal" cria um novo objeto animal, que tem as pripriedes `'nome'`, `'especie'` e `'felicidade'`, além do método `alimentar()`, que adciona um ponto de felicidade ao animal. 
+Ao ser instanciada, a classe "Animal" cria um novo objeto animal, que tem as pripriedes `'nome'`, `'especie'` e `'felicidade'`, além do método `alimentar()`, que adiciona um ponto de felicidade ao animal. 
 
 Vale ressaltar que um animal não pode ser criado se não houver um recinto que aceite sua espécie. Assim que criado, o animal é alocado automaticamente para um recinto, mas ele pode ser alterado posteriormente.
 
 # Endpoints
-Para manipular as entidades, são utilizados os endpoints. Abaixo, há uma eplicação de como eles funcionam: 
+Para manipular as entidades, são utilizados os endpoints. Abaixo, há uma explicação de como eles funcionam: 
 
 - `/criar_recinto`
 
@@ -76,16 +76,15 @@ Essa rota é utilizada para acionar o método alimentar() de um animal. O parâm
 
 - `/receber_visitantes`
 
-Essa rota é utilizada para calcular a receita gerada por um recinto, através dos visitantes.
-Os parâmetros a serem informados são:
+Essa rota é utilizada para simular o número de visitantes e calcular a receita gerada pelo recinto.
+Os parâmetros a ser informado é:
 
 ```json
 {
-    "recinto": "Pavilhão C1",
-    "numeroVisitantes": 50
+    "recinto": "Pavilhão C1"
 }
 ```
-obs: Para o cálculo, são levados em conta o tratamento oferecido pelo recinto, e a felicidade dos animais alocados em tal.
+obs: Para o cálculo dos visitantes, é feito um somatório, da felicidade de cada animal do recinto mutiplicado pelo tratamento. Depois, é cobrado 10 reais de casa visitante.
 
 # Testes
 
