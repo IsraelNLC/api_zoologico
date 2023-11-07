@@ -4,6 +4,11 @@ A implementação a seguir é uma API básica de um jogo de simulação de zool�
 
 A API foi desenvolvida utilizando JavaScript, com as bibliotecas Node.js e Express, além do Jest para os testes de integração.
 
+Para rodar a API, após instalar as dependências, basta utilizar:
+```
+npm run dev
+```
+
 # Classes
 As duas classes principais são `"Animal"` e `"Recinto"`. Elas servem como base para as operações da api.
 
@@ -84,15 +89,38 @@ obs: Para o cálculo, são levados em conta o tratamento oferecido pelo recinto,
 
 # Testes
 
-Utilizando a biblioteca Jest, foram implementados dois testes para cada endpoint. Um caso em que o teste passa, e o outro em que algum erro acontece.
+Utilizando as bibliotecas Jest e Supertest, foram implementados dois testes para cada endpoint. Um caso em que o teste passa com sucesso, e outro em que algum erro é disparado.
+
+Para iniciar a [bateria de testes](./src/index.test.js), basta utilizar:
+```
+npm test
+```
 Os testes estão apresentados abaixo: 
 
 - `/criar_recinto`
+    - Caso de erro: O recinto não é criado, pois o 'tratamento' inserido é inválido. O status code 400 é retornado. 
+    - Caso ótimo: O recinto é criado com sucesso, o status code 200 é retornado.
+
 
 - `/criar_animal`
+    - Caso de erro: O animal não é criado, pois a espécie inserida ainda não tem um recinto relacionado. O status code 400 é retornado.
+    - Caso ótimo: O animal é criado com sucesso, o status code 200 é retornado.
+
 
 - `/realocar_animal`
+    - Caso de erro: O animal não é realocado, pois o novo recinto especificado ainda não existe. O status code 400 é retornado.
+    - Caso ótimo: Junto ao teste, um novo recinto é craido e o animal é realocado com sucesso. O status code 200 é retornado.
+
 
 - `/alimentar_animal`
+    - Caso de erro: Nenhum animal é alimentado, pois o nome especificado ainda não existe no sistema. O status code 400 é retornado.
+    - Caso ótimo: O animal especificado é alimentado com sucesso, o status code 200 é retornado.
 
 - `/receber_visitantes`
+    - Caso de erro: Nenhum recinto é visitado, pois o nome especificado ainda não existe no sistema. O status code 400 é retornado.
+    - Caso ótimo: O recinto é visitado com sucesso, o status code 200 é retornado.
+
+<br>
+
+![Testes terminal](testes.png)
+Testes de endpoint bem sucedidos.
